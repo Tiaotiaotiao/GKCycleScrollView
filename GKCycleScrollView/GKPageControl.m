@@ -18,6 +18,7 @@
 @property (nonatomic, assign) CGFloat dotWidth;
 @property (nonatomic, assign) CGFloat dotHeight;
 @property (nonatomic, assign) CGFloat dotMargin;
+@property (nonatomic, assign) CGFloat dotSelWidth;
 
 @end
 
@@ -61,9 +62,10 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat selectW = 2 * self.dotWidth + self.dotMargin;
+    CGFloat selectW = self.dotSelWidth;
     
-    CGFloat viewX = (self.frame.size.width - self.dotWidth * (self.numberOfPages + 1) - self.dotMargin * self.numberOfPages) / 2;
+    CGFloat viewX = (self.frame.size.width - selectW - self.dotWidth * (self.numberOfPages - 1) - self.dotMargin * (self.numberOfPages - 1)) / 2;
+    
     CGFloat viewY = (self.frame.size.height - self.dotHeight) / 2;
     
     for (NSInteger i = 0; i < self.numberOfPages; i++) {
@@ -97,6 +99,7 @@
         self.dotWidth  = 8;
         self.dotHeight = 8;
         self.dotMargin = 8;
+        self.dotSelWidth = 16;
     }
     return self;
 }
@@ -111,6 +114,7 @@
         self.pageDotView.dotWidth = self.dotWidth;
         self.pageDotView.dotHeight = self.dotHeight;;
         self.pageDotView.dotMargin = self.dotMargin;
+        self.pageDotView.dotSelWidth = self.dotSelWidth;
         [self.pageDotView layoutSubviews];
     }
 }
@@ -138,6 +142,15 @@
     
     if (self.style == GKPageControlStyleSizeDot) {
         self.pageDotView.dotMargin = dotMargin;
+        [self.pageDotView layoutSubviews];
+    }
+}
+
+- (void)setDotSelWidth:(CGFloat)dotSelWidth {
+    _dotSelWidth = dotSelWidth;
+    
+    if (self.style == GKPageControlStyleSizeDot) {
+        self.pageDotView.dotSelWidth = dotSelWidth;
         [self.pageDotView layoutSubviews];
     }
 }

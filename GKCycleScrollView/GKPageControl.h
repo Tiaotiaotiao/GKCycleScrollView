@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, GKPageControlStyle) {
 /// 默认8
 @property (nonatomic, assign) CGFloat dotMargin;
 
+/// 选中时的宽度 默认16
+@property (nonatomic, assign) CGFloat dotSelWidth;
+
 @end
 
 NS_ASSUME_NONNULL_END
